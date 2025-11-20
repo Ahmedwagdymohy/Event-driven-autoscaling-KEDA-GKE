@@ -1,2 +1,13 @@
 ./terraform/.terraform
-./terraform/.terraform.lock.hcl
+./terraform/.terraform.lock.hcl# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+# keep the lock file
+!.terraform.lock.hcl
+
+# editor/temp files (example)
+*.swp
+*.swo
+.DS_Store
