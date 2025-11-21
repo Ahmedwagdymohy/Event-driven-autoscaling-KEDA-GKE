@@ -9,11 +9,7 @@ resource "google_container_cluster" "primary" {
 
 
 
-    node_config {
-    disk_size_gb = 30
-    disk_type    = "pd-standard"
-    }
-  
+
     addons_config {
         # Disable it as we will use ingress-nginx controller instead
         http_load_balancing {
