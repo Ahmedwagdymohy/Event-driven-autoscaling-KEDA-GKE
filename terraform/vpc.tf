@@ -12,7 +12,7 @@ resource "google_project_service" "container" {
 resource "google_compute_network" "main" {
   name                    = "main-vpc-network"
   auto_create_subnetworks = false
-  routing_mode = false
+  routing_mode = "REGIONAL"
   mtu = 1460
   delete_default_routes_on_create = false
 
