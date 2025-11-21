@@ -4,11 +4,16 @@ resource "google_container_cluster" "primary" {
     remove_default_node_pool = true
     initial_node_count = 1
     network = google_compute_network.main.name
-    subnetwork = google_cloud_subnetwork.private.self_link
+    subnetwork = google_compute_subnetwork.private.self_link
     networking_mode = "VPC_NATIVE"
+
+
+
+    node_config {
+    disk_size_gb = 30
+    disk_type    = "pd-standard"
+    }
   
-
-
     addons_config {
         # Disable it as we will use ingress-nginx controller instead
         http_load_balancing {
@@ -28,7 +33,7 @@ resource "google_container_cluster" "primary" {
 
 
     workload_identity_config {
-        workload_pool = "devops-v4.svc.id.goog"
+        workload_pool = "supple-alpha-474315-q5.svc.id.goog"
   }
 
     ip_allocation_policy {
