@@ -1,0 +1,44 @@
+# keda-demo-app.yaml
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: keda-demo
+  annotations:
+    iam.gke.io/gcp-service-account: keda-demo@supple-alpha-474315-q5.iam.gserviceaccount.com
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keda-demo
+  namespace: default
+  labels:
+    app: keda-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keda-demo
+  template:
+    metadata:
+      labels:
+        app: keda-demo
+    spec:
+      serviceAccountName: keda-demo
+      containers:
+      - name: consumer
+        image: simbu1290/keda-demo:v1
+        env:
+        - name: PUB_SUB_PROJECT
+          value: supple-alpha-474315-q5
+        - name: PUB_SUB_TOPIC
+          value: keda-demo-topic
+        - name: PUB_SUB_SUBSCRIPTION
+          value: keda-demo-topic-subscription
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
