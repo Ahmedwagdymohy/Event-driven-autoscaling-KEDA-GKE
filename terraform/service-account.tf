@@ -16,3 +16,23 @@ resource "google_service_account_iam_member" "service-a" {
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:supple-alpha-474315-q5.svc.id.goog[staging/service-a]"
 }
+
+# KEDA demo service account
+resource "google_service_account" "keda-demo" {
+  account_id = "keda-demo"
+  project    = "supple-alpha-474315-q5"
+}
+
+# IAM role binding for keda-demo service account
+resource "google_project_iam_member" "keda-demo" {
+  project = "supple-alpha-474315-q5"
+  role    = "roles/pubsub.subscriber"
+  member  = "serviceAccount:${google_service_account.keda-demo.email}"
+}
+
+# Allow kubernetes service account to impersonate GCP service account
+resource "google_service_account_iam_member" "keda-demo" {
+  service_account_id = google_service_account.keda-demo.id
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:supple-alpha-474315-q5.svc.id.goog[default/keda-demo]"
+}
