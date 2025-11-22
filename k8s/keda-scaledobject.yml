@@ -14,17 +14,17 @@ metadata:
 spec:
   scaleTargetRef:
     apiVersion: apps/v1 # Optional. Default: apps/v1
-    kind: Deployment    # Optional. Default: Deployment
-    name: keda-demo     # Mandatory. Must be in the same namespace as the ScaledObject
-  pollingInterval: 5    # Optional. Default: 30 seconds
-  minReplicaCount: 0    # Optional. Default: 0
-  maxReplicaCount: 10   # Optional. Default: 100
+    kind: Deployment # Optional. Default: Deployment
+    name: keda-demo # Mandatory. Must be in the same namespace as the ScaledObject
+  pollingInterval: 5 # Optional. Default: 30 seconds
+  minReplicaCount: 0 # Optional. Default: 0
+  maxReplicaCount: 10 # Optional. Default: 100
   triggers:
-  - type: gcp-pubsub
-    authenticationRef:
-      kind: TriggerAuthentication
-      name: keda-demo-trigger-auth-gcp-credentials
-    metadata:
-      mode: "SubscriptionSize" # Optional - Default is SubscriptionSize - SubscriptionSize or OldestUnackedMessageAge
-      value: "5" # Optional - Default is 5 for SubscriptionSize | Default is 10 for OldestUnackedMessageAge
-      subscriptionName: "keda-demo-topic-subscription" # Mandatory
+    - type: gcp-pubsub
+      authenticationRef:
+        kind: TriggerAuthentication
+        name: keda-demo-trigger-auth-gcp-credentials
+      metadata:
+        mode: "SubscriptionSize" # Optional - Default is SubscriptionSize - SubscriptionSize or OldestUnackedMessageAge
+        value: "5" # Optional - Default is 5 for SubscriptionSize | Default is 10 for OldestUnackedMessageAge
+        subscriptionName: "keda-demo-topic-subscription" # Mandatory
