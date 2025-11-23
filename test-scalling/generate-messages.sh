@@ -8,12 +8,10 @@ echo "Flooding Pub/Sub topic '$topic_name' in project '$project_id' ..."
 echo "Every second a new message will be published – watch your keda-demo pods explode!"
 echo "Press Ctrl+C to stop"
 
+# Change your script to send 20 messages per second
 while true; do
-    message="Hello from Bondok @ $(date '+%Y-%m-%d %H:%M:%S')"
-    gcloud pubsub topics publish "$topic_name" \
-        --message "$message" \
-        --project "$project_id"
-    
-    echo "Published: $message"
-    sleep 1
+  for i in {1..20}; do
+    gcloud pubsub topics publish keda-demo-topic --message="wake up!" --project=supple-alpha-474315-q5 &
+  done
+  wait
 done
